@@ -54,15 +54,11 @@ private extension View {
             .updating(state) { _, state, _ in state = true }
             .onChanged { actionOnChanged($0.translation.height) }
             .onEnded {
-                if PopupManager.shared.enable == true {
-                    if $0.velocity.height > 500 {
-                        actionOnEnded(.infinity)
-                    } else {
-                        actionOnEnded($0.translation.height)
-                    }
-                } else {
-                    actionOnEnded($0.translation.height)
+                if PopupManager.shared.enable == true &&
+                    $0.velocity.height > 500 {
+                    PopupManager.dismiss()
                 }
+                actionOnEnded($0.translation.height)
             }
     }
     func onStateChange(_ state: GestureState<Bool>, _ actionOnEnded: @escaping (CGFloat) -> ()) -> some View {
