@@ -21,10 +21,6 @@ open class MijickScrollViewGestureImpl: NSObject, MijickScrollViewGesture {
             if PopupManager.shared.enable != true {
                 PopupManager.shared.enable = true
             }
-        } else {
-            if PopupManager.shared.enable == true && PopupManager.shared.continueMove == true {
-                scrollView.setContentOffset(.zero, animated: false)
-            }
         }
     }
     
