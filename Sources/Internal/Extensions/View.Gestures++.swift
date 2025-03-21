@@ -15,21 +15,28 @@ import SwiftUI
 extension View {
     func onTapGesture(perform action: @escaping () -> ()) -> some View { onTapGesture(count: 1, perform: action) }
     func onDragGesture(_ state: GestureState<Bool>,enable: Binding<Bool>, onChanged actionOnChanged: @escaping (CGFloat) -> (), onEnded actionOnEnded: @escaping (CGFloat) -> ()) -> some View {
-//        simultaneousGesture(
-//            enable.wrappedValue ? createDragGesture(
-//                state,
-//                actionOnChanged,
-//                actionOnEnded
-//            ) : nil
-//        )
-        simultaneousGesture(
-            createDragGesture(
-                state,
-                actionOnChanged,
-                actionOnEnded
-            )
-        )
-        .onStateChange(state, actionOnEnded)
+        func createGes() -> any View {
+            let object: any View = if #available(iOS 18, *) {
+                simultaneousGesture(
+                    createDragGesture(
+                        state,
+                        actionOnChanged,
+                        actionOnEnded
+                    )
+                )
+            } else {
+                gesture(
+                    createDragGesture(
+                        state,
+                        actionOnChanged,
+                        actionOnEnded
+                    )
+                )
+            }
+            return object
+        }
+        let v = createGes().onStateChange(state, actionOnEnded)
+        return AnyView(v)
     }
 }
 private extension View {
