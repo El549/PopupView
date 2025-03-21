@@ -30,13 +30,22 @@ extension View {
                         state,
                         actionOnChanged,
                         actionOnEnded
-                    )
+                    ),
+                    including: .subviews
                 )
             }
             return object
         }
         let v = createGes().onStateChange(state, actionOnEnded)
         return AnyView(v)
+//        simultaneousGesture(
+//            createDragGesture(
+//                state,
+//                actionOnChanged,
+//                actionOnEnded
+//            )
+//        )
+//        .onStateChange(state, actionOnEnded)
     }
 }
 private extension View {
@@ -44,7 +53,17 @@ private extension View {
         DragGesture(minimumDistance: 0)
             .updating(state) { _, state, _ in state = true }
             .onChanged { actionOnChanged($0.translation.height) }
-            .onEnded { actionOnEnded($0.translation.height) }
+            .onEnded {
+                if PopupManager.shared.enable == true {
+                    if $0.velocity.height > 500 {
+                        actionOnEnded(.infinity)
+                    } else {
+                        actionOnEnded($0.translation.height)
+                    }
+                } else {
+                    actionOnEnded($0.translation.height)
+                }
+            }
     }
     func onStateChange(_ state: GestureState<Bool>, _ actionOnEnded: @escaping (CGFloat) -> ()) -> some View {
     #if os(visionOS)

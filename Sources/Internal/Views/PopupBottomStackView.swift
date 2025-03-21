@@ -71,14 +71,17 @@ private extension PopupBottomStackView {
 // MARK: On Changed
 private extension PopupBottomStackView {
     func onPopupDragGestureChanged(_ value: CGFloat) {
-        if canDragGestureBeUsed() {
+        if canDragGestureBeUsed(value) {
             updateGestureTranslation(value)
         }
     }
 }
 private extension PopupBottomStackView {
-    func canDragGestureBeUsed() -> Bool {
+    func canDragGestureBeUsed(_ value: CGFloat) -> Bool {
         if PopupManager.shared.enable == false { return false }
+        if value <= 0 {
+            PopupManager.shared.scrollViewOffset = .zero
+        }
         if PopupManager.shared.scrollViewOffset.y > 0 { return false }
         let result = lastPopupConfig.dragGestureEnabled ?? globalConfig.bottom.dragGestureEnabled
         if result == true {
@@ -124,8 +127,12 @@ private extension PopupBottomStackView {
 // MARK: On Ended
 private extension PopupBottomStackView {
     func onPopupDragGestureEnded(_ value: CGFloat) { guard value != 0 else { return }
-        dismissLastItemIfNeeded()
-        updateTranslationValues()
+        if value == .infinity {
+            self.dismiss()
+        } else {
+            dismissLastItemIfNeeded()
+            updateTranslationValues()
+        }
     }
 }
 private extension PopupBottomStackView {
