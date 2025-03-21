@@ -21,6 +21,7 @@ public class PopupManager: ObservableObject {
     
     @Published public var enable = true
     @Published public var continueMove = true
+    public var scrollViewOffset: CGPoint = .zero
     
     private init() {}
 }

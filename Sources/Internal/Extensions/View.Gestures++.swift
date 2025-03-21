@@ -34,7 +34,7 @@ extension View {
 }
 private extension View {
     func createDragGesture(_ state: GestureState<Bool>, _ actionOnChanged: @escaping (CGFloat) -> (), _ actionOnEnded: @escaping (CGFloat) -> ()) -> some Gesture {
-        DragGesture()
+        DragGesture(minimumDistance: 0)
             .updating(state) { _, state, _ in state = true }
             .onChanged { actionOnChanged($0.translation.height) }
             .onEnded { actionOnEnded($0.translation.height) }

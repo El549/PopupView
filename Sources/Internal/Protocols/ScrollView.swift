@@ -16,6 +16,7 @@ import UIKit
 open class MijickScrollViewGestureImpl: NSObject, MijickScrollViewGesture {
     
     open func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        PopupManager.shared.scrollViewOffset = scrollView.contentOffset
         if scrollView.contentOffset.y < 0 {
             scrollView.setContentOffset(.zero, animated: false)
             if PopupManager.shared.enable != true {

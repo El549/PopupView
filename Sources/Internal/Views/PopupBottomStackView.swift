@@ -78,9 +78,11 @@ private extension PopupBottomStackView {
 }
 private extension PopupBottomStackView {
     func canDragGestureBeUsed() -> Bool {
+        if PopupManager.shared.enable == false { return false }
+        if PopupManager.shared.scrollViewOffset.y > 0 { return false }
         let result = lastPopupConfig.dragGestureEnabled ?? globalConfig.bottom.dragGestureEnabled
         if result == true {
-            return PopupManager.shared.enable
+            return result
         } else {
             return result
         }
