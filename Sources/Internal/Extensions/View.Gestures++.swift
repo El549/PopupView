@@ -31,7 +31,7 @@ extension View {
                         actionOnChanged,
                         actionOnEnded
                     ),
-                    including: .subviews
+                    including: .all
                 )
             }
             return object
