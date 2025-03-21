@@ -71,6 +71,7 @@ private extension PopupBottomStackView {
 // MARK: On Changed
 private extension PopupBottomStackView {
     func onPopupDragGestureChanged(_ value: CGFloat) {
+        print(value)
         if canDragGestureBeUsed(value) {
             updateGestureTranslation(value)
         }
@@ -79,7 +80,7 @@ private extension PopupBottomStackView {
 private extension PopupBottomStackView {
     func canDragGestureBeUsed(_ value: CGFloat) -> Bool {
         if PopupManager.shared.enable == false { return false }
-        if value <= 0 {
+        if value <= 15 {
             PopupManager.shared.scrollViewOffset = .zero
         }
         if PopupManager.shared.scrollViewOffset.y > 0 { return false }
