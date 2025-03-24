@@ -71,7 +71,6 @@ private extension PopupBottomStackView {
 // MARK: On Changed
 private extension PopupBottomStackView {
     func onPopupDragGestureChanged(_ value: CGFloat) {
-        print(value)
         if canDragGestureBeUsed(value) {
             updateGestureTranslation(value)
         }
