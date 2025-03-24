@@ -24,7 +24,7 @@ extension View {
                         actionOnEnded
                     )
                 )
-            } else {
+            } else if #available(iOS 17, *) {
                 gesture(
                     createDragGesture(
                         state,
@@ -32,6 +32,14 @@ extension View {
                         actionOnEnded
                     ),
                     including: .all
+                )
+            } else {
+                simultaneousGesture(
+                    createDragGesture(
+                        state,
+                        actionOnChanged,
+                        actionOnEnded
+                    )
                 )
             }
             return object
