@@ -17,10 +17,14 @@ open class MijickScrollViewGestureImpl: NSObject, MijickScrollViewGesture {
     
     open func scrollViewDidScroll(_ scrollView: UIScrollView) {
         PopupManager.shared.scrollViewOffset = scrollView.contentOffset
-        if scrollView.contentOffset.y < 0 {
+        if scrollView.contentOffset.y < 0 || scrollView.contentOffset.x < 0 {
             scrollView.setContentOffset(.zero, animated: false)
             if PopupManager.shared.enable != true {
                 PopupManager.shared.enable = true
+            }
+        } else {
+            if PopupManager.shared.enable != false {
+                PopupManager.shared.enable = false
             }
         }
     }
@@ -32,7 +36,7 @@ open class MijickScrollViewGestureImpl: NSObject, MijickScrollViewGesture {
     }
     
     open func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        if scrollView.contentOffset.y > 0 {
+        if scrollView.contentOffset.y > 0 || scrollView.contentOffset.x > 0 {
             if PopupManager.shared.enable != false {
                 PopupManager.shared.enable = false
             }
