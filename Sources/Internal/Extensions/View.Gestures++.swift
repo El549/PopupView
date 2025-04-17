@@ -62,10 +62,10 @@ private extension View {
             .updating(state) { _, state, _ in state = true }
             .onChanged { actionOnChanged($0.translation.height) }
             .onEnded {
-                if PopupManager.shared.enable == true &&
-                    $0.velocity.height > 500 {
-                    PopupManager.dismiss()
-                }
+//                if PopupManager.shared.enable == true &&
+//                    $0.velocity.height > 500 {
+//                    PopupManager.dismiss()
+//                }
                 actionOnEnded($0.translation.height)
             }
     }
