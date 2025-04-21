@@ -58,9 +58,12 @@ extension View {
 }
 private extension View {
     func createDragGesture(_ state: GestureState<Bool>, _ actionOnChanged: @escaping (CGFloat) -> (), _ actionOnEnded: @escaping (CGFloat) -> ()) -> some Gesture {
-        DragGesture(minimumDistance: 15)
+        DragGesture(minimumDistance: 5)
             .updating(state) { _, state, _ in state = true }
-            .onChanged { actionOnChanged($0.translation.height) }
+            .onChanged {
+//                print($0.translation.height)
+                actionOnChanged($0.translation.height)
+            }
             .onEnded {
 //                if PopupManager.shared.enable == true &&
 //                    $0.velocity.height > 500 {
