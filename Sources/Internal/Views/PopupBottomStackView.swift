@@ -78,6 +78,9 @@ private extension PopupBottomStackView {
 }
 private extension PopupBottomStackView {
     func canDragGestureBeUsed(_ value: CGFloat) -> Bool {
+        if PopupManager.shared.scrollViewOffset.y <= 0 {
+            PopupManager.shared.enable = true
+        }
         if PopupManager.shared.enable == false { return false }
 //        if value <= 17.5 {
 //            PopupManager.shared.scrollViewOffset = .zero
