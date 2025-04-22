@@ -13,7 +13,13 @@ import SwiftUI
 struct PopupBottomStackView: PopupStack {
     let items: [AnyPopup<BottomPopupConfig>]
     let globalConfig: GlobalConfig
-    @Binding var enable: Bool
+    @Binding var enable: Bool {
+        didSet {
+            if enable == false {
+                resetGestureTranslation()
+            }
+        }
+    }
     @State var gestureTranslation: CGFloat = 0
     @State var heights: [ID: CGFloat] = [:]
     @State var dragHeights: [ID: CGFloat] = [:]
@@ -78,14 +84,10 @@ private extension PopupBottomStackView {
 }
 private extension PopupBottomStackView {
     func canDragGestureBeUsed(_ value: CGFloat) -> Bool {
-        if PopupManager.shared.scrollViewOffset.y <= 0 {
+        if PopupManager.shared.scrollViewOffset.y <= 0 && PopupManager.shared.scrollViewOffset.x <= 0 {
             PopupManager.shared.enable = true
         }
         if PopupManager.shared.enable == false { return false }
-//        if value <= 17.5 {
-//            PopupManager.shared.scrollViewOffset = .zero
-//        }
-        if PopupManager.shared.scrollViewOffset.y > 0 { return false }
         let result = lastPopupConfig.dragGestureEnabled ?? globalConfig.bottom.dragGestureEnabled
         if result == true {
             return result

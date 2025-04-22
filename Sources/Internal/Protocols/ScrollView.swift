@@ -20,7 +20,7 @@ open class MijickScrollViewGestureImpl: NSObject, MijickScrollViewGesture {
         if scrollView.contentOffset.y < 0 || scrollView.contentOffset.x < 0 {
             scrollView.setContentOffset(.zero, animated: false)
         }
-        if scrollView.contentOffset.y <= 0 || scrollView.contentOffset.x <= 0 {
+        if scrollView.contentOffset.y <= 0 && scrollView.contentOffset.x <= 0 {
             if PopupManager.shared.enable != true {
                 PopupManager.shared.enable = true
             }

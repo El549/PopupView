@@ -59,9 +59,10 @@ extension View {
 private extension View {
     func createDragGesture(_ state: GestureState<Bool>, _ actionOnChanged: @escaping (CGFloat) -> (), _ actionOnEnded: @escaping (CGFloat) -> ()) -> some Gesture {
         DragGesture(minimumDistance: 5)
-            .updating(state) { _, state, _ in state = true }
+            .updating(state) { val1, state, val2 in
+                state = true
+            }
             .onChanged {
-//                print($0.translation.height)
                 actionOnChanged($0.translation.height)
             }
             .onEnded {
