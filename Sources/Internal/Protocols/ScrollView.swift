@@ -16,7 +16,6 @@ import UIKit
 open class MijickScrollViewGestureImpl: NSObject, MijickScrollViewGesture {
     
     open func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        print("scrollViewDidScroll")
         PopupManager.shared.scrollViewOffset = scrollView.contentOffset
         if scrollView.contentOffset.y < 0 || scrollView.contentOffset.x < 0 {
             scrollView.setContentOffset(.zero, animated: false)
@@ -33,14 +32,12 @@ open class MijickScrollViewGestureImpl: NSObject, MijickScrollViewGesture {
     }
     
     open func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        print("scrollViewDidEndDragging")
         if PopupManager.shared.enable != true {
             PopupManager.shared.enable = true
         }
     }
     
     open func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        print("scrollViewDidEndDecelerating")
         if PopupManager.shared.enable != true {
             PopupManager.shared.enable = true
         }
